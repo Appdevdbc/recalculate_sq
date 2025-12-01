@@ -1,0 +1,15 @@
+version: 0.0
+os: windows
+files:
+  - source: /
+    destination: D:\WEBERP\portalfa\backend\
+hooks:
+  BeforeInstall:
+    - location: scripts/stop_pm2.bat
+      timeout: 60
+      runas: Administrator
+  AfterInstall:
+    - location: scripts/start_pm2.bat
+      timeout: 60
+      runas: Administrator
+file_exists_behavior: OVERWRITE

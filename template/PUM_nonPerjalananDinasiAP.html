@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Persetujuan Bon</title>
+    <style>
+        /* @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap'); */
+
+        body {
+            /* font-family: 'Poppins', sans-serif; */
+            font-family: 'Verdana', sans-serif;
+            font-size: 12px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+
+        .no-border {
+            border: none;
+        }
+
+        .left {
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div style="text-align: left;">
+        <strong><u>{{domain_longname}}</u></strong>
+    </div>
+
+    <h3 class="section-title">PERSETUJUAN BON SEMENTARA</h3>
+    <br>
+
+    <table style="width: 100%; margin-bottom: 10px; border:hidden;" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <!-- KIRI -->
+            <td style="width: 50%; vertical-align: top;border:hidden;">
+                <table>
+                    <tr>
+                        <td style="font-weight: bold;border:hidden;text-align:left;">Department</td>
+                        <td style="border:hidden;text-align:center;">: </td>
+                        <td style="border:hidden;text-align:left;">{{department}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;border:hidden;text-align:left;">Perihal</td>
+                        <td style="border:hidden;text-align:center;">: </td>
+                        <td style="border:hidden;text-align:left;">{{perihal}}</td>
+                    </tr>
+                </table>
+            </td>
+
+            <!-- KANAN -->
+            <td style="width: 50%; vertical-align: top;border:hidden;text-align-last:right;">
+                <table style="float: right;border:hidden;width: 80%;">
+                    <tr>
+                        <td style="font-weight: bold;border:hidden;text-align:left;">No</td>
+                        <td style="border:hidden;text-align:center;">:</td>
+                        <td style="border:hidden;text-align:left;">{{no_pum}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;border:hidden;text-align:left;">Kas</td>
+                        <td style="border:hidden;text-align:center;">:</td>
+                        <td style="border:hidden;text-align:left;">{{kas}}</td>
+
+                        <td style="font-weight: bold;border:hidden;text-align:left;">Bank</td>
+                        <td style="border:hidden;text-align:center;">:</td>
+                        <td style="border:hidden;text-align:left;">{{bank}}</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>No. PO/Kw/Inv</th>
+                <th class="center">Keterangan</th>
+                <th>Jumlah</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each details}}
+            <tr>
+                <td>{{inc @index}}</td>
+                <td>{{tanggal_raw}}</td>
+                <td>{{no_po}}</td>
+                <td class="left">{{description}}</td>
+                <td class="right">
+                    <div style="float: left;">{{../currency}}</div>
+                    <div style="float: right;">{{formatCurrency amount}}</div>
+                </td>
+            </tr>
+            {{/each}}
+            {{!-- Baris kosong jika data < 6 --}} {{#each emptyRows}} <tr>
+                <td>&nbsp;</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                </tr>
+                {{/each}}
+                <tr>
+                    <td colspan="4" style="border-bottom: thin;" class="bold">Total</td>
+                    <td class="right bold">
+                        <div style="float: left;">{{currency}}</div>
+                        <div style="float: right;">{{ formatCurrency total}}</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"
+                        style="border: hidden;border-top-style: solid;border-right: thin;border-top-width: thin;"></td>
+                    <td colspan="4" class="bold">{{ terbilang }}</td>
+                </tr>
+        </tbody>
+    </table>
+    <br><br>
+
+    <table style="width: 100%; font-size: 12px;border:hidden;" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="width: 30%;vertical-align: top;text-align: left; border: hidden;vertical-align: middle;;">
+                <table style="border:hidden;">
+                    <tr>
+                        <td style="border:hidden;font-weight: bolder;text-align:left;">Created By :</td>
+                    </tr>
+                    <tr>
+                        <td style="border:hidden;text-align:left;"> {{created_position }} <br> {{ created_by }}</td>
+                        <td style="border:hidden;">:</td>
+                        <td style="border:hidden;text-align:left;">{{ created_date }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border:hidden;"><br></td>
+                    </tr>
+                    <tr>
+                        <td style="border:hidden;font-weight: bolder;text-align:left;">Approved By :</td>
+                    </tr>
+                    {{#each approver}}
+                    <tr>
+                        <td style="border:hidden;text-align:left;">{{approver_position}} <br> {{ approver_name}}</td>
+                        <td style="border:hidden;">:</td>
+                        <td style="border:hidden;text-align:left;">{{ approve_date }}</td>
+                    </tr>
+                    {{/each}}
+                </table>
+            </td>
+
+            <!-- CENTER: TAX Table -->
+            <td style="width: 40%; vertical-align: middle; text-align: center;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 5px; font-size: 12px;">
+                    <tr>
+                        <td style="text-align: left;border-bottom: hidden;font-weight: bolder;" colspan="3">TAX</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;border-bottom: hidden;" colspan="3"><b>Objek Pajak</b>
+                            &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{taxable}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;" colspan="3"><b>Jenis Pajak</b>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{jenis_pajak}}</td>
+                    </tr>
+                    <tr style="font-weight: bold; text-align: center;">
+                        <td style="border: 1px solid black;">Tarif</td>
+                        <td style="border: 1px solid black;">DPP</td>
+                        <td style="border: 1px solid black;">Pajak</td>
+                    </tr>
+                    {{#each tax_items}}
+                    <tr>
+                        <td class="right">{{tarif}} %</td>
+                        <td class="right">{{formatCurrency tax_based}}</td>
+                        <td class="right">{{formatCurrency tax_amount}}</td>
+                    </tr>
+                    {{/each}}
+                    {{!-- Baris kosong jika data < 6 --}} {{#each emptyRows}} <tr>
+                        <td style="border: 1px solid black; text-align: center;"></td>
+                        <td style="border: 1px solid black; text-align: center;"></td>
+                        <td style="border: 1px solid black; text-align: center;"></td>
+        </tr>
+        {{/each}}
+    </table>
+    </td>
+
+    <td style="width: 25%;vertical-align: top;border: hidden;text-align-last: left;vertical-align:middle;">
+        <table style="border:hidden;text-align-last: left;margin-left:15px;">
+            <tr>
+                <td style="border:hidden;font-weight: bolder;text-align:left;">Approved Tax By :</td>
+            </tr>
+            {{#each approver_tax}}
+            <tr>
+                <td style="border:hidden;text-align:left;">{{approver_position}} <br> {{approver_name}}</td>
+                <td style="border:hidden;">:</td>
+                <td style="border:hidden;text-align:left;">{{approve_date}}</td>
+            </tr>
+            {{/each}}
+        </table>
+    </td>
+    </tr>
+    </table>
+
+
+</body>
+
+</html>
+
+<script>
+    handlebars.registerHelper('formatCurrency', function (value) {
+        if (!value) return '0';
+        return new Intl.NumberFormat('id-ID', {
+            minimumFractionDigits: 0,
+        }).format(value);
+    });
+
+</script>

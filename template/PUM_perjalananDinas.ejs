@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Uang Muka Perjalanan Dinas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .info-table td {
+      padding: 5px 10px;
+      vertical-align: top;
+    }
+
+    .signature-section {
+      margin-top: 40px;
+    }
+
+    .signature-table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    .signature-table td {
+      padding: 5px;
+    }
+
+    .header-table {
+      width: 100%;
+      border: 1px solid #000;
+      border-collapse: collapse;
+    }
+
+    .header-table td {
+      vertical-align: middle;
+      border: 1px solid #000;
+    }
+
+    .logo {
+      width: 150px;
+    }
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <table class="header-table">
+      <tr>
+        <td style="width: 20%; text-align: center;">
+          <img src="<%= logo %>" alt="Logo DBC" class="logo">
+        </td>
+        <td class="title">
+          FORM UANG MUKA PERJALANAN DINAS (BON SEMENTARA)
+        </td>
+      </tr>
+    </table>
+
+    <div class="section-title">DATA PERJALANAN DINAS</div>
+    <table class="info-table">
+      <tr>
+        <td>Nomor Deklarasi</td>
+        <td>:</td>
+        <td><%= on_duty_number %></td>
+        <td></td>
+        <td></td>
+        <td style="min-width: 200px; font-weight: bold; font-size: 16px;"><%= pum_number %></td>
+      </tr>
+      <tr>
+        <td>Nama Karyawan</td>
+        <td>:</td>
+        <td colspan="4"><%= employee_name %></td>
+      </tr>
+      <tr>
+        <td>NIK</td>
+        <td>:</td>
+        <td colspan="4"><%= employee_nik %></td>
+      </tr>
+      <tr>
+        <td>Department/Division</td>
+        <td>:</td>
+        <td colspan="4"><%= department_name %>, <%= division_name %></td>
+      </tr>
+      <tr style="border-top: 1px solid #000;">
+        <td>Jenis Dinas</td>
+        <td>:</td>
+        <td colspan="4"><%= on_duty_type %><br><%= dkk_type %></td>
+      </tr>
+      <tr style="border-top: 1px solid #000; border-bottom: 1px solid #000;">
+        <td></td>
+        <td></td>
+        <td colspan="4"></td>
+      </tr>
+      <tr>
+        <td>Tempat Tujuan</td>
+        <td>:</td>
+        <td colspan="4"><%= on_duty_destination %></td>
+      </tr>
+      <tr>
+        <td>Keperluan Dinas</td>
+        <td>:</td>
+        <td colspan="4"><%= on_duty_claim_remark %></td>
+      </tr>
+      <tr>
+        <td>Tanggal Berangkat</td>
+        <td>:</td>
+        <td><%= on_duty_start_date %></td>
+        <td>Tanggal Kembali</td>
+        <td>:</td>
+        <td style="min-width: 200px;"><%= on_duty_end_date %></td>
+      </tr>
+      <tr>
+        <td>Jumlah Hari</td>
+        <td>:</td>
+        <td colspan="4"><%= on_duty_days %> Hari</td>
+      </tr>
+      <tr>
+        <td>Pengambilan Uang Muka</td>
+        <td>:</td>
+        <td colspan="4">
+          Rp <%= on_duty_value %><br>
+          <%= on_duty_value_terbilang %> Rupiah
+        </td>
+      </tr>
+    </table>
+
+    <div class="signature-section">
+      <table class="signature-table">
+        <tr>
+          <td>Approved by</td>
+          <td>Position</td>
+          <td>Status Approval</td>
+        </tr>
+        <tr>
+          <td><%= on_duty_approved_by_name %></td>
+          <td><%= on_duty_approved_by_pos %></td>
+          <td><%= on_duty_status %></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <% if (classification === 'OS') { %>
+          <tr style="font-weight: bold;">
+            <td>Acknowledged by</td>
+            <td>Approved HR by</td>
+          </tr>
+          <tr style="font-weight: bold;">
+            <td><%= acknowledged_by %></td>
+            <td><%= approved_hr_by %></td>
+          </tr>
+        <% } %>
+
+      </table>
+    </div>
+  </div>
+</body>
+</html>
