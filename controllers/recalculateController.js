@@ -32,6 +32,7 @@ export const recalculate = async (req, res) => {
       let no_quote = responseOrderHead[i].no_quote;
       let no_web = responseOrderHead[i].no_web;
       let linked = domain == '320' ? process.env.LINKED_QAD_RBS : process.env.LINKED_QAD_DBC;
+      let wsa = domain == '320' ? process.env.WSA_RBS : process.env.WSA;
 
       let sql = `
         declare @qo_lama as table (
@@ -224,7 +225,7 @@ export const recalculate = async (req, res) => {
           };
 
           let callWsa;
-          callWsa = await getWSA(process.env.WSA, "assDBCDisctambahan", args);
+          callWsa = await getWSA(wsa, "assDBCDisctambahan", args);
           parsedData = JSON.parse(JSON.stringify(callWsa));
 
           result = parsedData.result;
