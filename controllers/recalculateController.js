@@ -190,6 +190,9 @@ export const recalculate = async (req, res) => {
         from @pro
         group by kode_promo
 
+        set @promo = coalesce(@promo, '');
+        set @disc_tambahan = coalesce(@disc_tambahan, 0);
+
         select 
           '${no_quote}' qo_nbr, 
           qo__chr05 disc_lama, 
